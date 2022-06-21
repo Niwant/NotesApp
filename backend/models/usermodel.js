@@ -15,6 +15,9 @@ const userSchema = mongoose.Schema({
     type: String,
     required: [true, "please add password"],
   },
+  tags: {
+    type: [String],
+  },
 });
 
 userSchema.plugin(uniqueValidator);

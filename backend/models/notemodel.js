@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
+
 const noteSchema = mongoose.Schema(
   {
     user: {
@@ -27,6 +27,5 @@ const noteSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-noteSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model("Note", noteSchema);

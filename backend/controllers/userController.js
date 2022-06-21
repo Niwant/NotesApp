@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/usermodel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const Note = require("../models/notemodel");
 //
 //
 //
@@ -28,8 +29,10 @@ const register = asyncHandler(async (req, res) => {
   });
   if (user) {
     res.status(201).json({
-      userid: user.name,
+      user: user.name,
       token: generatetoken(user.id),
+      id: user._id,
+      tags: user.tags,
     });
   } else {
     res.status(400);
@@ -38,30 +41,58 @@ const register = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-  const { name, password } = req.body;
+  const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (user && (await bcrypt.compare(password, user.password))) {
     res.status(201).json({
       user: user.name,
-      token: generatetoken(user.userid),
+      token: generatetoken(user._id),
+      id: user._id,
+      tags: user.tags,
     });
   } else {
-    register.status(400);
+    res.status(400);
     throw new Error("Invalid Credentials");
   }
 });
 
 const getUser = asyncHandler(async (req, res) => {
-  const { id, name } = await User.findById(req.user.id);
+  res.status(200).json(req.user);
+});
+
+const updateUser = asyncHandler(async (req, res) => {
+  if (!req.user) {
+    res.status(400);
+    throw new Error("user not available");
+  }
+  const updatedUser = await User.findByIdAndUpdate(req.user, req.body, {
+    new: true,
+  });
   res.status(200).json({
-    id: id,
-    name,
+    user: updatedUser.name,
+    token: generatetoken(updatedUser._id),
+    id: updatedUser._id,
+    tags: updatedUser.tags,
+  });
+});
+
+const deleteUser = asyncHandler(async (req, res) => {
+  if (!req.user) {
+    res.status(400);
+    throw new Error("user not available");
+  }
+
+  await Note.deleteMany(req.user);
+  await User.findByIdAndDelete(req.user);
+
+  res.status(200).json({
+    message: "user and notes are deleted",
   });
 });
 
 const generatetoken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
+    expiresIn: "6d",
   });
 };
 
@@ -69,4 +100,6 @@ module.exports = {
   register,
   loginUser,
   getUser,
+  updateUser,
+  deleteUser,
 };
