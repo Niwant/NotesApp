@@ -7,22 +7,49 @@ const User = require("../models/usermodel");
 
 const getNotes = asyncHandler(async (req, res) => {
   const { page, searchTerm, tags } = req.query;
-  console.log(searchTerm);
+
   const title = new RegExp(searchTerm, "i");
   const LIMIT = 8;
   const startIndex = (Number(page) - 1) * LIMIT;
-  searchtags = tags.split(",");
-  const total = await Note.countDocuments({
-    user: req.user,
-    $or: [{ title }, { tags: { $in: searchtags } }],
-  });
-  const notes = await Note.find({
-    user: req.user,
-    $or: [{ title }, { tags: { $in: searchtags } }],
-  })
-    .sort({ _id: -1 })
-    .limit(LIMIT)
-    .skip(startIndex);
+  if (tags == "undefined") {
+    searchTags = undefined;
+  } else {
+    searchTags = tags.split(",").map((tag) => new RegExp(tag, "i"));
+  }
+  //const searchTags = unfilterTags.map((tag) => new RegExp(tag, "i"));
+  console.log(title);
+  console.log(searchTags);
+  let total = 0;
+  let notes = [];
+  if (searchTags instanceof Array) {
+    total = await Note.countDocuments({
+      user: req.user,
+      $or: [{ tags: { $in: searchTags } }],
+    });
+
+    notes = await Note.find({
+      user: req.user,
+      $or: [{ tags: { $in: searchTags } }],
+      //$or: [{ tags: { $in: searchTags } }],
+    })
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+  } else {
+    total = await Note.countDocuments({
+      user: req.user,
+      $or: [{ title }],
+    });
+
+    notes = await Note.find({
+      user: req.user,
+      $or: [{ title }],
+      //$or: [{ tags: { $in: searchTags } }],
+    })
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+  }
   res.status(200).json({
     notes,
     currentPage: Number(page),

@@ -13,32 +13,53 @@ function Pagination({ numberofPages }) {
   const dispatch = useDispatch();
 
   const onClick = (e) => {
-    dispatch(getNotes(e.target.value));
+    dispatch(getNotes({ page: e.target.value }));
   };
   const onFirst = (e) => {
     dispatch(getNotes());
   };
   const onLast = (e) => {
-    dispatch(getNotes(numberofPages));
+    dispatch(getNotes({ page: numberofPages }));
   };
 
   return (
     <>
-      <button className="btn-flat" value={1} onClick={onFirst}>
+      <button
+        className="btn-floating waves-effect blue darken-1"
+        value={1}
+        onClick={onFirst}
+        style={{ margin: "5px", marginRight: "10px" }}
+      >
         <i class="material-icons">chevron_left</i>
       </button>
 
-      <ul class="pagination ">
+      <ul
+        class="pagination "
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         {page.map((pageno) => (
           <li>
-            <button className="btn-flat" value={pageno} onClick={onClick}>
+            <button
+              className="btn waves-effect white black-text"
+              value={pageno}
+              onClick={onClick}
+            >
               {pageno}
             </button>
           </li>
         ))}
       </ul>
 
-      <button className="btn-flat" value={numberofPages} onClick={onLast}>
+      <button
+        className="btn-floating blue darken-1"
+        value={numberofPages}
+        onClick={onLast}
+        style={{ margin: "5px", marginLeft: "10px" }}
+      >
         <i class="material-icons">chevron_right</i>
       </button>
     </>

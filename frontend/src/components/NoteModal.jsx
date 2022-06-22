@@ -12,6 +12,7 @@ function NoteModal(prevnote) {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
+  const { isError, isSuccess, message } = useSelector((state) => state.note);
   const [noteData, setnoteData] = useState({
     title: "",
     body: "",
@@ -37,14 +38,19 @@ function NoteModal(prevnote) {
     };
     dispatch(createNote(noteData));
     dispatch(updateUser(usertags));
+
+    if (isError) {
+      M.toast({ html: `${message}` });
+    }
+    if (isSuccess) {
+      M.toast({ html: "Note Saved!" });
+    }
     setnoteData(() => ({
       title: "",
       body: "",
       flag: false,
       tags: [],
     }));
-
-    M.toast({ html: "Note Saved!" });
   };
 
   const onChange = (e) => {
@@ -82,11 +88,16 @@ function NoteModal(prevnote) {
         </a>
       </div>
 
-      <div ref={modal} id="modal1" className="modal">
+      <div ref={modal} id="modal1" className="modal z-depth-1">
+        <div
+          ref={chip}
+          className="chips chips-placeholder"
+          style={{ height: "10px" }}
+        ></div>
         <form onSubmit={onSubmit}>
           <div className="modal-content">
             <div className="row">
-              <div className="input-field col s10 offset-s1">
+              <div className="input-field col s12 ">
                 <i className="material-icons prefix">title</i>
                 <input
                   id="title"
@@ -95,13 +106,13 @@ function NoteModal(prevnote) {
                   value={title}
                   className="validate"
                   onChange={onChange}
+                  style={{ border: "2px solid grey", borderRadius: "10px" }}
                 />
                 <label htmlFor="title">Enter your Note Title</label>
               </div>
             </div>
-
-            <div className="row">
-              <div className="input-field col s12">
+            <div className="row" style={{ margin: "0" }}>
+              <div className="input-field col s12" style={{ margin: "0" }}>
                 <i className="material-icons prefix">text_snippet</i>
                 <textarea
                   id="body"
@@ -110,25 +121,25 @@ function NoteModal(prevnote) {
                   value={body}
                   className="validate materialize-textarea"
                   onChange={onChange}
+                  style={{
+                    border: "2px solid grey",
+                    height: " 30vh",
+                    borderRadius: "10px",
+                  }}
                 ></textarea>
-                <label htmlFor="body">body</label>
+                <label htmlFor="body">Note Content</label>
               </div>
             </div>
           </div>
-          <div className="modal-footer">
-            <a className="modal-close btn-flat" href="javascript">
-              Cancel
-            </a>
-            <button class="btn indigo darken-3 modal-close" type="submit">
+
+          <div className="modal-footer" style={{ margin: "0" }}>
+            <a className="modal-close btn-flat">Cancel</a>
+            <button className="btn indigo darken-3 modal-close" type="submit">
               Save
               <i className="material-icons right">save</i>
             </button>
           </div>
         </form>
-        <div
-          ref={chip}
-          className="chips chips-placeholder col s8 offset-s1"
-        ></div>
       </div>
     </>
   );

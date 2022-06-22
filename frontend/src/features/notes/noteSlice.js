@@ -34,11 +34,10 @@ export const getNotes = createAsyncThunk(
   "notes/getAll",
   async (queries, thunkAPI) => {
     try {
-      console.log(queries);
       const page = queries.page ? queries.page : 1;
-      console.log(page);
+
       const searchTerm = queries.searchTerm ? queries.searchTerm : "";
-      const tags = queries.tags ? queries.tags.join(",") : "";
+      const tags = queries.tags ? queries.tags.join(",") : undefined;
       const token = thunkAPI.getState().auth.user.token;
       return await noteService.getNotes({ page, searchTerm, tags }, token);
     } catch (error) {

@@ -45,26 +45,31 @@ function Header() {
                 color: "blue",
               }}
             >
-              <div
-                className="valign-wrapper input-field"
-                style={{
-                  paddingBottom: "5px",
-                  paddingTop: "10px",
-                }}
-              >
-                <input
-                  id="search"
-                  type="search"
-                  required
-                  placeholder="Search"
-                  style={{ borderRadius: "15px" }}
-                  onChange={_.debounce(onChange, 300)}
-                />
-                <label className="valign-wrapper label-icon" for="search">
-                  <i className="valign-wrapper material-icons">search</i>
-                </label>
-                <i class="material-icons">close</i>
-              </div>
+              {" "}
+              {user ? (
+                <div
+                  className="valign-wrapper input-field"
+                  style={{
+                    paddingBottom: "5px",
+                    paddingTop: "10px",
+                  }}
+                >
+                  <input
+                    id="search"
+                    type="search"
+                    required
+                    placeholder="Search"
+                    style={{ borderRadius: "15px" }}
+                    onChange={_.debounce(onChange, 300)}
+                  />
+                  <label className="valign-wrapper label-icon" for="search">
+                    <i className="valign-wrapper material-icons">search</i>
+                  </label>
+                  <i class="material-icons">close</i>
+                </div>
+              ) : (
+                <div></div>
+              )}
             </form>
 
             <ul id="nav-mobile" className="right hide-on-med-and-down col s2">

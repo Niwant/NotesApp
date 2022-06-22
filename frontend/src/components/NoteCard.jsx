@@ -73,106 +73,108 @@ function NoteCard({ note }) {
 
   return (
     <>
-      <div class="row ">
-        <div class="col s12 m6 ">
-          <div class="card  white lighten-5 z-depth-2">
-            <div class="card-content indigo-text ">
-              <span class="card-title">
-                <h4>{title}</h4>
-              </span>
-              <p className="truncate">{body}</p>
-              <h6>
-                {tags.map((tag) => (
-                  <div className="chip">{tag}</div>
-                ))}
-              </h6>
-            </div>
-            <div class="card-action">
-              <div className="row">
-                <button
-                  className="large btn modal-trigger white-text col s2 indigo darken-3"
-                  data-target={title}
-                >
-                  <i className="material-icons ">open_in_full</i>
-                </button>
-                <button
-                  className="btn col s2 offset-s8 modal-trigger red"
-                  data-target={note._id}
-                >
-                  <i className="material-icons">delete</i>
-                </button>
-              </div>
-            </div>
+      <div class="col s3">
+        <div
+          class="card small z-depth-2 grey lighten-5"
+          style={{
+            border: "2px solid #cbcff7 ",
+            borderRadius: "20px 0px 5px 5px",
+            height: "33vh",
+          }}
+        >
+          <div class="card-content" style={{ marginTop: "0px" }}>
+            <span class="card-title " style={{ marginTop: "0px" }}>
+              <h4>{title}</h4>
+            </span>
+            <p className="truncate indigo-text darken-3">{body}</p>
+            <h6>
+              {tags.map((tag) => (
+                <div className="chip">{tag}</div>
+              ))}
+            </h6>
           </div>
-        </div>
-        <div ref={deleteref} id={note._id} class="modal">
-          <div class="modal-content">
-            <h4>{title}</h4>
-            <p>Do you really want to delete this Note!!</p>
-          </div>
-          <div class="modal-footer">
-            <a href="javascript" class="modal-close btn-flat">
-              No
-            </a>
-            <a
-              href="javascript"
-              class="modal-close  btn-flat"
-              onClick={onDelete}
-            >
-              Yes
-            </a>
-          </div>
-        </div>
-        <div ref={modal} id={title} class="modal">
-          <form onSubmit={onUpdate}>
-            <div className="modal-content">
-              <div className="row">
-                <div className="input-field col s10 offset-s1">
-                  <i className="material-icons prefix">title</i>
-                  <input
-                    id="title"
-                    type="text"
-                    name="title"
-                    value={title}
-                    className="validate"
-                    onChange={onChange}
-                  />
-                  <label className="active" htmlFor="title">
-                    Enter your Note Title
-                  </label>
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="input-field col s12">
-                  <i className="material-icons prefix">text_snippet</i>
-                  <textarea
-                    id="body"
-                    type="text"
-                    name="body"
-                    value={body}
-                    className="validate materialize-textarea"
-                    onChange={onChange}
-                  ></textarea>
-                  <label className="active" htmlFor="body">
-                    body
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button className="modal-close btn-flat">Cancel</button>
-              <button class="btn indigo darken-3 modal-close" type="submit">
-                Save
-                <i className="material-icons right">save</i>
+          <div class="card-action">
+            <div className="row">
+              <button
+                className="large btn modal-trigger white-text col s2 blue darken-1 z-depth-1"
+                data-target={title}
+              >
+                <i className="material-icons ">open_in_full</i>
+              </button>
+              <button
+                className="btn col s2 offset-s8 modal-trigger red z-dept-1"
+                data-target={note._id}
+              >
+                <i className="material-icons">delete</i>
               </button>
             </div>
-          </form>
-          <div
-            ref={chip}
-            className="chips chips-placeholder chips-initial col s8 offset-s1"
-          ></div>
+          </div>
         </div>
+      </div>
+      <div ref={deleteref} id={note._id} class="modal">
+        <div class="modal-content">
+          <h4>{title}</h4>
+          <p>Do you really want to delete this Note!!</p>
+        </div>
+        <div class="modal-footer">
+          <a class="modal-close btn-flat">No</a>
+          <button class="modal-close  btn-flat" onClick={onDelete}>
+            Yes
+          </button>
+        </div>
+      </div>
+      <div ref={modal} id={title} class="modal">
+        <div ref={chip} className="chips chips-placeholder chips-initial"></div>
+        <form onSubmit={onUpdate}>
+          <div className="modal-content">
+            <div className="row">
+              <div className="input-field col s12">
+                <i className="material-icons prefix">title</i>
+                <input
+                  id="title"
+                  type="text"
+                  name="title"
+                  value={title}
+                  className="validate"
+                  onChange={onChange}
+                  style={{ border: "2px solid grey", borderRadius: "10px" }}
+                />
+                <label className="active" htmlFor="title">
+                  Enter your Note Title
+                </label>
+              </div>
+            </div>
+
+            <div className="row" style={{ margin: "0" }}>
+              <div className="input-field col s12" style={{ margin: "0" }}>
+                <i className="material-icons prefix">text_snippet</i>
+                <textarea
+                  id="body"
+                  type="text"
+                  name="body"
+                  value={body}
+                  className="validate materialize-textarea"
+                  onChange={onChange}
+                  style={{
+                    border: "2px solid grey",
+                    height: " 30vh",
+                    borderRadius: "10px",
+                  }}
+                ></textarea>
+                <label className="active" htmlFor="body">
+                  Note Content..
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="modal-footer">
+            <a className="modal-close btn-flat">Cancel</a>
+            <button class="btn indigo darken-3 modal-close" type="submit">
+              Save
+              <i className="material-icons right">save</i>
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );
