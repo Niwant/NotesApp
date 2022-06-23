@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import M from "materialize-css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getNotes } from "../features/notes/noteSlice";
+import Spinner from "./Spinner";
 
 function TagSearch({ tags, selectTags, setSelectTags }) {
   const form = useRef();
   const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.auth);
 
   useEffect(() => {
     M.FormSelect.init(form.current);
@@ -24,6 +26,7 @@ function TagSearch({ tags, selectTags, setSelectTags }) {
 
   const onReset = () => {
     dispatch(getNotes({}));
+    setSelectTags([]);
   };
 
   return (
@@ -36,23 +39,22 @@ function TagSearch({ tags, selectTags, setSelectTags }) {
             </option>
           ))}
         </select>
-        <label>Filter by Tags : {selectTags}</label>
+        <label>Filter by Tags : {selectTags.join(",")}</label>
       </div>
       <button
         className="btn col s12 blue darken-1"
         onClick={onClick}
-        style={{ marginTop: "5px" }}
+        style={{ marginTop: "5px", height: "32px" }}
       >
         Search
       </button>
       <button
         className="btn col s12 red"
         onClick={onReset}
-        style={{ marginTop: "10px" }}
+        style={{ marginTop: "10px", height: "32px" }}
       >
         Reset
       </button>
-      <div>showing Results for :</div>
     </div>
   );
 }

@@ -2,21 +2,24 @@ import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getNotes } from "../features/notes/noteSlice";
+import "../styles/Pagination.css";
 
-function Pagination({ numberofPages }) {
+function Pagination({ numberofPages, selectTags }) {
   const page = [];
 
   for (let i = 1; i <= numberofPages; i += 1) {
     page.push(i);
   }
-
+  console.log(selectTags);
   const dispatch = useDispatch();
 
   const onClick = (e) => {
-    dispatch(getNotes({ page: e.target.value }));
+    selectTags.length
+      ? dispatch(getNotes({ page: e.target.value, tags: selectTags }))
+      : dispatch(getNotes({ page: e.target.value }));
   };
   const onFirst = (e) => {
-    dispatch(getNotes());
+    dispatch(getNotes({}));
   };
   const onLast = (e) => {
     dispatch(getNotes({ page: numberofPages }));
@@ -24,44 +27,46 @@ function Pagination({ numberofPages }) {
 
   return (
     <>
-      <button
-        className="btn-floating waves-effect blue darken-1"
-        value={1}
-        onClick={onFirst}
-        style={{ margin: "5px", marginRight: "10px" }}
-      >
-        <i class="material-icons">chevron_left</i>
-      </button>
+      <div className="alignments">
+        <button
+          className="btn-floating blue darken-1 ends"
+          value={1}
+          onClick={onFirst}
+          style={{ margin: "5px", marginRight: "10px" }}
+        >
+          <i class="material-icons">chevron_left</i>
+        </button>
 
-      <ul
-        class="pagination "
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+        {/* <ul
+          class="pagination alignments"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        > */}
         {page.map((pageno) => (
-          <li>
-            <button
-              className="btn waves-effect white black-text"
-              value={pageno}
-              onClick={onClick}
-            >
-              {pageno}
-            </button>
-          </li>
+          // <li>
+          <button
+            className="btn black-text buttons"
+            value={pageno}
+            onClick={onClick}
+          >
+            {pageno}
+          </button>
+          // </li>
         ))}
-      </ul>
+        {/* </ul> */}
 
-      <button
-        className="btn-floating blue darken-1"
-        value={numberofPages}
-        onClick={onLast}
-        style={{ margin: "5px", marginLeft: "10px" }}
-      >
-        <i class="material-icons">chevron_right</i>
-      </button>
+        <button
+          className="btn-floating blue darken-1 ends"
+          value={numberofPages}
+          onClick={onLast}
+          style={{ margin: "5px", marginLeft: "10px" }}
+        >
+          <i class="material-icons">chevron_right</i>
+        </button>
+      </div>
     </>
   );
 }

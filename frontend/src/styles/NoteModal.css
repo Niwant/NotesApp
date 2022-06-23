@@ -1,0 +1,97 @@
+.notebutton {
+  transform: scale(1.2);
+  margin-bottom: 2vh;
+  margin-right: 2vh;
+}
+
+div.modalCont {
+  border-radius: 0;
+  height: 66vh;
+  width: 52vw;
+}
+
+.formContainer {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  width: 50vw !important;
+  height: 40vh;
+  margin-left: 1vw;
+}
+
+.footerAlign {
+  background: rgba(229, 233, 250, 0.1) !important;
+  align-self: flex-end;
+  margin-left: 3vw !important;
+}
+
+.inpField {
+  width: 30vw !important;
+  height: 20px !important;
+  background: #fff !important;
+  color: black !important;
+  font: inherit;
+  border: 2px solid #283593 !important;
+  outline: 0 !important;
+  padding: 22px 18px !important;
+  padding-left: 10vw !important;
+}
+
+.textBody {
+  height: 22vh !important;
+  width: 41vw !important;
+  background: #fff !important;
+  color: black !important;
+  font: inherit;
+  border: 2px solid #283593 !important;
+  outline: 0 !important;
+  padding: 22px 18px !important;
+  padding-left: 90px !important;
+}
+
+.label {
+  padding-left: 7vw !important;
+  color: black;
+}
+
+.chipHolder {
+  width: 39vw !important;
+  height: 20px !important;
+  background: #fff !important;
+  color: black !important;
+  font: inherit;
+  border: 2px solid #283593 !important;
+  outline: 0 !important;
+  padding: 5px 18px !important;
+  padding-left: 50px !important;
+}
+
+.chipField {
+  width: 35vw !important;
+  height: 20px !important;
+  background: #fff !important;
+  color: black !important;
+  font: inherit;
+  border: 0 !important;
+  outline: 0 !important;
+  padding: 22px 18px !important;
+  padding-left: 50px !important;
+}
+
+.btnStyle {
+  display: inline-block;
+  width: 8vw !important;
+}
+
+.tagAlign {
+  margin-top: 25px;
+  margin-left: 5vw;
+  display: flex;
+  align-items: center;
+}
+
+.tagBtn {
+  position: absolute;
+  z-index: 99;
+  margin-left: 25px;
+}/*# sourceMappingURL=NoteModal.css.map */

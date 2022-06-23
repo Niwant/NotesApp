@@ -16,7 +16,7 @@ function Header() {
     dispatch(logout());
     dispatch(reset());
 
-    navigate("/");
+    navigate("/login");
   };
 
   const onChange = (e) => {
@@ -32,9 +32,19 @@ function Header() {
             <div className="col s3">
               <div className="brand-logo ">
                 {user ? (
-                  <Link to="/home">NotesApp</Link>
+                  <Link
+                    to="/home"
+                    style={{ fontFamily: "'Cabin Sketch', cursive" }}
+                  >
+                    NotesApp
+                  </Link>
                 ) : (
-                  <Link to="/">NotesApp</Link>
+                  <Link
+                    to="/"
+                    style={{ fontFamily: "'Cabin Sketch', cursive" }}
+                  >
+                    NotesApp
+                  </Link>
                 )}
               </div>
             </div>

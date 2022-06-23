@@ -1,0 +1,55 @@
+$blue: #1e88e5;
+
+.cardDesign {
+  padding: 16px;
+  margin: 10px;
+  margin-top: 3vh;
+  //border-radius: 1em;
+  //border: 2px solid transparentize($blue, 0.7);
+  text-shadow: 0 0 0.2em transparentize(rgba(89, 86, 86, 0.918), 0.3);
+  background: transparentize(rgb(149, 192, 245), 0.2);
+  //backdrop-filter: blur(20px);
+  height: 25vh !important;
+  width: 19vw !important;
+}
+
+.cardContainer {
+  //height: 33vh;
+  padding: 0;
+  margin: 2rem 1rem;
+}
+
+.actions {
+  height: 5vh;
+  //border-radius: 0 0 1em 1em !important;
+}
+
+.alignments {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.contentStyle {
+  margin: 8px 8px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  height: 17vh;
+  border-radius: 1em;
+}
+
+.tags {
+  transform: scale(0.8);
+}
+
+.formCont {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  //align-items: stretch;
+  width: 50vw !important;
+  height: 40vh;
+  margin-left: 1vw;
+}

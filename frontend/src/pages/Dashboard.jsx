@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import NoteModal from "../components/NoteModal";
 import { getNotes, reset } from "../features/notes/noteSlice";
 import Spinner from "../components/Spinner";
 import NoteCard from "../components/NoteCard";
 import Pagination from "../components/Pagination";
 import TagSearch from "../components/TagSearch";
+import M from "materialize-css";
 
 function Dashboard() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [selectTags, setSelectTags] = useState([]);
 
@@ -18,6 +18,7 @@ function Dashboard() {
     notes,
     isLoading,
     isSuccessNote,
+    isSuccess,
     isError,
     message,
     numberofPages,
@@ -31,8 +32,15 @@ function Dashboard() {
   useEffect(() => {
     if (isError) {
       console.log(message);
+      M.toast({ html: `${message}` });
+    }
+    if (isSuccess) {
+      M.toast({ html: "Note Saved" });
     }
 
+    if (isSuccessNote) {
+      dispatch(getNotes({}));
+    }
     dispatch(getNotes({}));
 
     return () => {
@@ -41,11 +49,11 @@ function Dashboard() {
   }, [
     user,
     // navigate,
-    // isSuccessNote,
-    // isError,
+    //isSuccessNote,
+    //isError,
     // message.dispatch,
-    // dispatch,
-    // message,
+    //message,
+    //isSuccess,
   ]);
 
   return (
@@ -68,22 +76,25 @@ function Dashboard() {
                 Page : {currentPage} / {numberofPages}
               </h6>
             </div>
-            <TagSearch
-              tags={user.tags}
-              selectTags={selectTags}
-              setSelectTags={setSelectTags}
-            />
+            {isLoading ? (
+              <></>
+            ) : (
+              <TagSearch
+                tags={user.tags}
+                selectTags={selectTags}
+                setSelectTags={setSelectTags}
+              />
+            )}
           </div>
-          <div className="col s9" style={{ marginTop: "10px" }}>
+          <div className="col s10" style={{ marginTop: "25px" }}>
             {isLoading ? (
               <Spinner />
             ) : notes.length > 0 ? (
               <div
-                className="row"
+                className=""
                 style={{
-                  marginLeft: "3vw",
-                  marginTop: "2vh",
-                  marginRight: "5px",
+                  marginTop: "5vh",
+                  marginLeft: "3vw !important",
                 }}
               >
                 {notes.map((note) => (
@@ -105,7 +116,7 @@ function Dashboard() {
           }}
         >
           {numberofPages > 1 ? (
-            <Pagination numberofPages={numberofPages} />
+            <Pagination numberofPages={numberofPages} selectTags={selectTags} />
           ) : (
             <div></div>
           )}

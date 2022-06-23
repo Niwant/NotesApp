@@ -14,7 +14,7 @@ const getNotes = asyncHandler(async (req, res) => {
   if (tags == "undefined") {
     searchTags = undefined;
   } else {
-    searchTags = tags.split(",").map((tag) => new RegExp(tag, "i"));
+    searchTags = tags.split(",");
   }
   //const searchTags = unfilterTags.map((tag) => new RegExp(tag, "i"));
   console.log(title);
