@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import { useSelector } from "react-redux";
+import UserDetails from "./pages/UserDetails";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
@@ -36,6 +37,10 @@ function App() {
             <Route
               path="/"
               element={!user ? <Home /> : <Navigate replace to="/home" />}
+            />
+            <Route
+              path="/userdetails"
+              element={user ? <UserDetails /> : <Navigate replace to="/" />}
             />
             <Route
               path="*"

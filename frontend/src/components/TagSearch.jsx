@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from "react";
 import M from "materialize-css";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotes } from "../features/notes/noteSlice";
-import Spinner from "./Spinner";
 
+import LightSpeed from "react-reveal/LightSpeed";
 function TagSearch({ tags, selectTags, setSelectTags }) {
   const form = useRef();
   const dispatch = useDispatch();
@@ -30,7 +30,13 @@ function TagSearch({ tags, selectTags, setSelectTags }) {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-around",
+      }}
+    >
       <div class="input-field col s12">
         <select ref={form} multiple>
           {tags.map((tag) => (
@@ -39,22 +45,34 @@ function TagSearch({ tags, selectTags, setSelectTags }) {
             </option>
           ))}
         </select>
-        <label>Filter by Tags : {selectTags.join(",")}</label>
+        <label>Filter by Tags</label>
       </div>
-      <button
-        className="btn col s12 blue darken-1"
-        onClick={onClick}
-        style={{ marginTop: "5px", height: "32px" }}
-      >
-        Search
-      </button>
-      <button
-        className="btn col s12 red"
-        onClick={onReset}
-        style={{ marginTop: "10px", height: "32px" }}
-      >
-        Reset
-      </button>
+      <div>
+        <button
+          className="btn col s12 blue darken-1"
+          onClick={onClick}
+          style={{ marginTop: "5px", height: "32px" }}
+        >
+          Search
+        </button>
+        <button
+          className="btn col s12 red"
+          onClick={onReset}
+          style={{ marginTop: "10px", height: "32px" }}
+        >
+          Reset
+        </button>
+      </div>
+      <div style={{ marginTop: "5vh !important", color: "red" }}>
+        <h6 style={{}}> Filtered by Tags:</h6>
+        <LightSpeed left cascade>
+          <div style={{ color: "gray" }}>
+            {selectTags.map((tag) => (
+              <p>{tag}</p>
+            ))}
+          </div>
+        </LightSpeed>
+      </div>
     </div>
   );
 }

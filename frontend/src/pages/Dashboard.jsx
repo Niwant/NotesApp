@@ -8,6 +8,7 @@ import NoteCard from "../components/NoteCard";
 import Pagination from "../components/Pagination";
 import TagSearch from "../components/TagSearch";
 import M from "materialize-css";
+import Fade from "react-reveal/Fade";
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -90,17 +91,19 @@ function Dashboard() {
             {isLoading ? (
               <Spinner />
             ) : notes.length > 0 ? (
-              <div
-                className=""
-                style={{
-                  marginTop: "5vh",
-                  marginLeft: "3vw !important",
-                }}
-              >
-                {notes.map((note) => (
-                  <NoteCard key={note._id} note={note} />
-                ))}
-              </div>
+              <Fade>
+                <div
+                  className=""
+                  style={{
+                    marginTop: "5vh",
+                    marginLeft: "3vw !important",
+                  }}
+                >
+                  {notes.map((note) => (
+                    <NoteCard key={note._id} note={note} />
+                  ))}
+                </div>
+              </Fade>
             ) : (
               <div className="valign-wrapper">
                 <h2 className="grey-text ligthen-2">No Notes....</h2>

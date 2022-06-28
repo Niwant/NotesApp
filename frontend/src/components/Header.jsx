@@ -55,7 +55,6 @@ function Header() {
                 color: "blue",
               }}
             >
-              {" "}
               {user ? (
                 <div
                   className="valign-wrapper input-field"
@@ -89,6 +88,12 @@ function Header() {
                     <button className="btn-flat white-text" onClick={onLogout}>
                       Logout
                     </button>
+                  </li>
+                  <li>
+                    <Link to="/userdetails" className="valign-wrapper">
+                      <i className="material-icons">person</i>
+                      {user.user}
+                    </Link>
                   </li>
                 </>
               ) : (

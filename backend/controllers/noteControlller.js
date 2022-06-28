@@ -32,7 +32,7 @@ const getNotes = asyncHandler(async (req, res) => {
       $or: [{ tags: { $in: searchTags } }],
       //$or: [{ tags: { $in: searchTags } }],
     })
-      .sort({ _id: -1 })
+      .sort({ flag: -1, _id: -1 })
       .limit(LIMIT)
       .skip(startIndex);
   } else {
@@ -46,7 +46,7 @@ const getNotes = asyncHandler(async (req, res) => {
       $or: [{ title }],
       //$or: [{ tags: { $in: searchTags } }],
     })
-      .sort({ _id: -1 })
+      .sort({ flag: -1, _id: -1 })
       .limit(LIMIT)
       .skip(startIndex);
   }

@@ -21,10 +21,11 @@ $blue: #1e88e5;
 
 .actions {
   height: 5vh;
-  //border-radius: 0 0 1em 1em !important;
+  //border-top: 1px solid grey;
 }
 
-.alignments {
+.footalignments {
+  border-top: 1px solid rgba(211, 211, 211, 0.741);
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
@@ -37,7 +38,7 @@ $blue: #1e88e5;
   justify-content: space-around;
   align-items: flex-start;
   height: 17vh;
-  border-radius: 1em;
+  //border-radius: 1em;
 }
 
 .tags {

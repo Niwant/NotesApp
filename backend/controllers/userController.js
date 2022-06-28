@@ -33,6 +33,7 @@ const register = asyncHandler(async (req, res) => {
       token: generatetoken(user.id),
       id: user._id,
       tags: user.tags,
+      email: user.email,
     });
   } else {
     res.status(400);
@@ -49,6 +50,7 @@ const loginUser = asyncHandler(async (req, res) => {
       token: generatetoken(user._id),
       id: user._id,
       tags: user.tags,
+      email: user.email,
     });
   } else {
     res.status(400);
@@ -73,6 +75,26 @@ const updateUser = asyncHandler(async (req, res) => {
     token: generatetoken(updatedUser._id),
     id: updatedUser._id,
     tags: updatedUser.tags,
+    email: updatedUser.email,
+  });
+});
+
+const passUpdate = asyncHandler(async (req, res) => {
+  if (!req.user) {
+    res.status(400);
+    throw new Error("Not Authorized");
+  }
+  const { password } = req.body;
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPass = await bcrypt.hash(password, salt);
+
+  const updatedPass = await User.findByIdAndUpdate(req.user, {
+    password: hashedPass,
+  });
+
+  res.status(200).json({
+    message: "Password Updated Successfully",
   });
 });
 
@@ -102,4 +124,5 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
+  passUpdate,
 };

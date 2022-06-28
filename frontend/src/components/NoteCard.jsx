@@ -10,6 +10,8 @@ import {
 } from "../features/notes/noteSlice";
 import { useNavigate } from "react-router-dom";
 import "../styles/NoteCard.css";
+import _ from "lodash";
+import Fade from "react-reveal";
 
 function NoteCard({ note }) {
   const modal = useRef();
@@ -18,8 +20,8 @@ function NoteCard({ note }) {
   const favref = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const { isSuccess } = useSelector((state) => state.note);
+  const [favFlag, setfavFlag] = useState(note.flag);
+  const { isSuccess, currentPage } = useSelector((state) => state.note);
 
   useEffect(() => {
     M.Modal.init(modal.current, { opacity: 0.7 });
@@ -70,6 +72,23 @@ function NoteCard({ note }) {
   };
   const onDelete = () => {
     dispatch(deleteNote(note._id));
+    dispatch(getNotes({ page: currentPage }));
+  };
+
+  const favTog = () => {
+    console.log(favFlag);
+    console.log(note.flag);
+    favFlag ? setfavFlag(false) : setfavFlag(true);
+    const noteData = [
+      note._id,
+      {
+        flag: favFlag ? false : true,
+      },
+    ];
+    console.log(noteData);
+    //heart.classList.toggle("red-text");
+    dispatch(updateNote(noteData));
+    _.debounce(dispatch(getNotes({ page: currentPage })), 1000);
   };
 
   return (
@@ -85,18 +104,35 @@ function NoteCard({ note }) {
             }}
           >
             <h5 style={{ fontWeight: "bold" }}>{title}</h5>
-            <button className="btn-flat" id="favtoggle">
-              <i className="material-icons">favorite_border</i>
+            <button
+              className="btn-flat transparent"
+              id="favtoggle"
+              onClick={favTog}
+              styel={{
+                background: "transparentize(rgb(149, 192, 245), 0.2)",
+                color: "grey",
+              }}
+            >
+              {favFlag ? (
+                <i className="material-icons red-text" ref={favref}>
+                  favorite
+                </i>
+              ) : (
+                <i className="material-icons grey-text" ref={favref}>
+                  favorite
+                </i>
+              )}
             </button>
           </div>
-          <p className=" truncate black-text darken-3">{body}</p>
+
+          <p className="black-text darken-3">{body.slice(0, 20)}.....</p>
           <h6>
             {tags.map((tag) => (
               <div className="chip tags">{tag}</div>
             ))}
           </h6>
         </div>
-        <div class="alignments actions">
+        <div class="footalignments actions">
           {/* <div className=" row "> */}
           <div></div>
           <div>
