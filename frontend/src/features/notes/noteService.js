@@ -18,11 +18,17 @@ const getNotes = async ({ page, searchTerm, tags }, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
+      CacheControl: "no-cache",
+      Pragma: "no-cache",
+      Expires: "0",
     },
   };
 
   const response = await axios.get(
-    API_URL + `notes?page=${page}&searchTerm=${searchTerm}&tags=${tags}`,
+    API_URL +
+      `notes?page=${page}` +
+      (searchTerm ? `&searchTerm=${searchTerm}` : ``) +
+      (tags ? `&tags=${tags}` : ``),
     config
   );
 

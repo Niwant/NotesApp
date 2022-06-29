@@ -24,6 +24,10 @@ function Header() {
     dispatch(getNotes({ searchTerm: e.target.value }));
   };
 
+  const onClear = (e) => {
+    console.log(e.target.value);
+  };
+
   return (
     <>
       <div className="navbar-fixed">
@@ -71,10 +75,12 @@ function Header() {
                     style={{ borderRadius: "15px" }}
                     onChange={_.debounce(onChange, 300)}
                   />
-                  <label className="valign-wrapper label-icon" for="search">
+                  <label className="valign-wrapper label-icon" htmlFor="search">
                     <i className="valign-wrapper material-icons">search</i>
                   </label>
-                  <i class="material-icons">close</i>
+                  <i className="material-icons" onClick={onClear}>
+                    close
+                  </i>
                 </div>
               ) : (
                 <div></div>

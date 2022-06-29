@@ -1,17 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import M from "materialize-css";
 import { passwordUpdate } from "../features/auth/authSlice";
 
 function UserDetails() {
-  const { user } = useSelector((state) => state.auth);
+  const { user, isError, message, isPassUpdate } = useSelector(
+    (state) => state.auth
+  );
   const [confrimPassword, setConfirmPassword] = useState({
     password: "",
     password2: "",
+    currpassword: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
-  const { password, password2 } = confrimPassword;
+  const { password, password2, currpassword } = confrimPassword;
+
+  useEffect(() => {
+    if (isError) {
+      M.toast({ html: `${message}` });
+    }
+    if (isPassUpdate) {
+      M.toast({ html: "Password Updated Successfully" });
+    }
+  }, [isError, isPassUpdate]);
 
   const onChange = (e) => {
     setConfirmPassword((prevState) => ({
@@ -20,13 +33,16 @@ function UserDetails() {
     }));
   };
 
+  const onShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (password !== password2 || password.length <= 1) {
       M.toast({ html: "Wrong Password" });
     } else {
-      dispatch(passwordUpdate({ password }));
-      M.toast({ html: "Password Changed Successfully" });
+      dispatch(passwordUpdate({ currpassword, password }));
     }
   };
 
@@ -49,28 +65,85 @@ function UserDetails() {
           style={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "space-between",
+            justifyContent: "center",
             alignItems: "stretch",
-            width: "25vw",
+            width: "31vw",
+            height: "40vh",
           }}
           onSubmit={onSubmit}
         >
-          <div className="input-field">
-            <i className="material-icons prefix">password</i>
+          <div className="input-field col s12">
+            <i className="material-icons prefix">key</i>
+
+            <input
+              id="currpassword"
+              type={showPassword ? "text" : "password"}
+              name="currpassword"
+              value={currpassword}
+              className="validate input__field"
+              onChange={onChange}
+              style={{ height: "40px" }}
+            />
+
+            {showPassword ? (
+              <i
+                className="material-icons prefix visibility "
+                onClick={onShowPassword}
+              >
+                visibility_off
+              </i>
+            ) : (
+              <i
+                className="material-icons prefix visibility"
+                onClick={onShowPassword}
+              >
+                visibility
+              </i>
+            )}
+
+            <label
+              className="input__label"
+              style={{
+                fontWeight: "bold",
+                marginLeft: "4vw",
+                paddingBottom: "5px",
+              }}
+              htmlFor="currpassword"
+            >
+              Enter Current password
+            </label>
+          </div>
+          <div className="input-field col s12">
+            <i className="material-icons prefix">key</i>
+
             <input
               id="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={password}
-              className="validate"
+              className="validate input__field"
               onChange={onChange}
-              style={{
-                border: "3px solid #283593",
-                paddingLeft: "10px",
-                height: "32px",
-              }}
+              style={{ height: "40px" }}
             />
+
+            {showPassword ? (
+              <i
+                className="material-icons prefix visibility "
+                onClick={onShowPassword}
+              >
+                visibility_off
+              </i>
+            ) : (
+              <i
+                className="material-icons prefix visibility"
+                onClick={onShowPassword}
+              >
+                visibility
+              </i>
+            )}
+
             <label
+              className="input__label"
               style={{
                 fontWeight: "bold",
                 marginLeft: "4vw",
@@ -88,15 +161,15 @@ function UserDetails() {
               type="text"
               name="password2"
               value={password2}
-              className="validate"
+              className="validate input__field"
               onChange={onChange}
               style={{
-                border: "3px solid #283593",
                 paddingLeft: "10px",
                 height: "32px",
               }}
             />
             <label
+              className="input__label"
               style={{
                 fontWeight: "bold",
                 marginLeft: "4vw",

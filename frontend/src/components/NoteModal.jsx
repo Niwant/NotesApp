@@ -84,10 +84,7 @@ function NoteModal(prevnote) {
       <div ref={modal} id="modal1" className="modal modalCont">
         <form onSubmit={onSubmit} className="formContainer">
           <div className="tagAlign">
-            <a
-              className="btn blue darken-3 tagBtn prefix"
-              href="javascript:void(0);"
-            >
+            <a className="btn blue darken-3 tagBtn prefix" href="javascript">
               Tags
             </a>
             <div ref={chip} class="chips chipHolder ">

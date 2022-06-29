@@ -11,11 +11,7 @@ const getNotes = asyncHandler(async (req, res) => {
   const title = new RegExp(searchTerm, "i");
   const LIMIT = 8;
   const startIndex = (Number(page) - 1) * LIMIT;
-  if (tags == "undefined") {
-    searchTags = undefined;
-  } else {
-    searchTags = tags.split(",");
-  }
+  const searchTags = tags ? tags.split(",") : undefined;
   //const searchTags = unfilterTags.map((tag) => new RegExp(tag, "i"));
   console.log(title);
   console.log(searchTags);
@@ -43,7 +39,7 @@ const getNotes = asyncHandler(async (req, res) => {
 
     notes = await Note.find({
       user: req.user,
-      $or: [{ title }],
+      $or: [{ title }, { tags: { $in: title } }],
       //$or: [{ tags: { $in: searchTags } }],
     })
       .sort({ flag: -1, _id: -1 })

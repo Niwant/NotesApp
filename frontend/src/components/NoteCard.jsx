@@ -93,7 +93,13 @@ function NoteCard({ note }) {
 
   return (
     <>
-      <div class="z-depth-2 grey lighten-5 cardDesign col s3">
+      <div
+        class="z-depth-2 grey lighten-5 cardDesign col s3"
+        style={{
+          borderTop: "3px solid #190ccc",
+          borderRadius: "5px 5px 0px 0px",
+        }}
+      >
         <div class="contentStyle">
           <div
             style={{

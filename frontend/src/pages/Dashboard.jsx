@@ -26,11 +26,8 @@ function Dashboard() {
     currentPage,
   } = useSelector((state) => state.note);
 
-  // useEffect(() => {
-  //   dispatch(getNotes());
-  // }, []);
-
   useEffect(() => {
+    dispatch(getNotes({}));
     if (isError) {
       console.log(message);
       M.toast({ html: `${message}` });
@@ -42,20 +39,11 @@ function Dashboard() {
     if (isSuccessNote) {
       dispatch(getNotes({}));
     }
-    dispatch(getNotes({}));
 
     return () => {
       dispatch(reset());
     };
-  }, [
-    user,
-    // navigate,
-    //isSuccessNote,
-    //isError,
-    // message.dispatch,
-    //message,
-    //isSuccess,
-  ]);
+  }, [user]);
 
   return (
     <>
@@ -72,11 +60,11 @@ function Dashboard() {
             }}
           >
             <h3>Welcome {user && user.user}</h3>
-            <div>
+            {/* <div>
               <h6>
                 Page : {currentPage} / {numberofPages}
               </h6>
-            </div>
+            </div> */}
             {isLoading ? (
               <></>
             ) : (

@@ -6,11 +6,13 @@ import Spinner from "../components/Spinner";
 import logo from "../logo.png";
 import M from "materialize-css";
 import Fade from "react-reveal/Fade";
+import "../styles/Form.css";
 function Login() {
   const [formData, setformData] = useState({
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const { email, password } = formData;
   const navigate = useNavigate();
@@ -38,7 +40,9 @@ function Login() {
       [e.target.name]: e.target.value,
     }));
   };
-
+  const onShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   const onSubmit = (e) => {
     e.preventDefault();
     const userData = {
@@ -108,53 +112,63 @@ function Login() {
                 type="email"
                 name="email"
                 value={email}
-                className="validate"
+                className="validate input__field"
                 onChange={onChange}
-                style={{
-                  border: "3px solid #283593",
-                  paddingLeft: "10px",
-                  height: "32px",
-                }}
+                style={{}}
               />
               <label
-                className="active"
                 htmlFor="email"
                 style={{
                   fontWeight: "bold",
                   marginLeft: "4vw",
                   paddingBottom: "5px",
                 }}
+                className="input__label"
               >
                 E-mail
               </label>
-              <span
+              {/* <span
                 className="helper-text"
                 data-error="wrong"
                 data-success="right"
-              >
-                Enter Valid Email Id
-              </span>
+              ></span> */}
             </div>
 
             <div className="input-field col s12">
               <i className="material-icons prefix">key</i>
+
               <input
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 value={password}
-                className="validate"
+                className="validate input__field"
                 onChange={onChange}
-                style={{ border: "3px solid #283593", height: "32px" }}
               />
+              {showPassword ? (
+                <i
+                  className="material-icons visibility "
+                  onClick={onShowPassword}
+                >
+                  visibility_off
+                </i>
+              ) : (
+                <i
+                  className="material-icons visibility"
+                  onClick={onShowPassword}
+                >
+                  visibility
+                </i>
+              )}
+
               <label
-                className="active"
                 style={{
                   fontWeight: "bold",
                   marginLeft: "4vw",
                   paddingBottom: "5px",
                 }}
                 htmlFor="password"
+                className="input__label"
               >
                 Enter password
               </label>

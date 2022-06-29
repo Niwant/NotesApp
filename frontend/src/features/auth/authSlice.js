@@ -8,6 +8,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
+  isPassUpdate: false,
 };
 
 export const register = createAsyncThunk(
@@ -144,6 +145,7 @@ export const authSlice = createSlice({
       .addCase(passwordUpdate.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.isPassUpdate = true;
         //state.user = action.payload;
         console.log(action.payload);
       })

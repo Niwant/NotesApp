@@ -1,0 +1,48 @@
+i:hover {
+  cursor: pointer !important;
+}
+
+.visibility {
+  position: relative !important;
+  left: 30vw !important;
+  top: -5vh !important;
+}
+
+.input {
+  position: relative;
+}
+.input__label {
+  position: absolute !important;
+  left: 1.5vw !important;
+  top: 0px !important;
+  width: 15vw !important;
+  padding: calc(var(0.5rem) * 0.75) calc(var(0.5rem) * 0.5) !important;
+  margin: calc(var(0.5rem) * 0.75 + 3px) calc(var(0.5rem) * 0.5) !important;
+  padding-left: 10px !important;
+  background: rgb(255, 255, 255) !important;
+  transform: translate(0, 0);
+  transform-origin: 0 0;
+  background: white;
+  transition: transform 120ms ease-in;
+  font-weight: bold;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+  border-radius: 15% !important;
+}
+.input__field {
+  box-sizing: border-box;
+  display: block;
+  width: 90% !important;
+  border: 3px solid black !important;
+  padding: calc(var(0.5rem) * 1.5) var(0.5rem) !important;
+  padding-left: 1.5vw !important;
+  color: black !important;
+  height: 38px !important;
+}
+.input__field:focus + .input__label {
+  transform: translate(0.75rem, -65%) scale(0.8) translateY(0.2);
+  font-size: 14px;
+}
+.input__field:focus + .input__field {
+  border: 3px solid #009688 !important;
+}/*# sourceMappingURL=Form.css.map */

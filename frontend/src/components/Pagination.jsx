@@ -10,7 +10,7 @@ function Pagination({ numberofPages, selectTags }) {
   for (let i = 1; i <= numberofPages; i += 1) {
     page.push(i);
   }
-  console.log(selectTags);
+
   const dispatch = useDispatch();
 
   const onClick = (e) => {

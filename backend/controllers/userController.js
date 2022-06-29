@@ -84,18 +84,24 @@ const passUpdate = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Not Authorized");
   }
-  const { password } = req.body;
+  const user = await User.findOne({ _id: req.user });
 
-  const salt = await bcrypt.genSalt(10);
-  const hashedPass = await bcrypt.hash(password, salt);
+  const { password, currpassword } = req.body;
 
-  const updatedPass = await User.findByIdAndUpdate(req.user, {
-    password: hashedPass,
-  });
+  if (user && (await bcrypt.compare(currpassword, user.password))) {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(password, salt);
 
-  res.status(200).json({
-    message: "Password Updated Successfully",
-  });
+    const updatedPass = await User.findByIdAndUpdate(req.user, {
+      password: hashedPass,
+    });
+    res.status(200).json({
+      message: "Password Updated Successfully",
+    });
+  } else {
+    res.status(401);
+    throw new Error("Enter Correct Current Password");
+  }
 });
 
 const deleteUser = asyncHandler(async (req, res) => {

@@ -15,7 +15,7 @@ import UserDetails from "./pages/UserDetails";
 
 function App() {
   const { user } = useSelector((state) => state.auth);
-  console.log(user);
+
   return (
     <>
       <Router>

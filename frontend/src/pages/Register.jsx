@@ -6,6 +6,7 @@ import Spinner from "../components/Spinner";
 import logo from "../logo.png";
 import M from "materialize-css";
 import Fade from "react-reveal";
+import "../styles/Form.css";
 function Register() {
   const [formData, setformData] = useState({
     name: "",
@@ -120,16 +121,15 @@ function Register() {
                 type="text"
                 name="name"
                 value={name}
-                className="validate"
+                className="validate input__field"
                 onChange={onChange}
                 style={{
-                  border: "3px solid #283593",
                   paddingLeft: "10px",
                   height: "32px",
                 }}
               />
               <label
-                className="active"
+                className="input__label"
                 style={{
                   fontWeight: "bold",
                   marginLeft: "4vw",
@@ -148,16 +148,15 @@ function Register() {
                 type="email"
                 name="email"
                 value={email}
-                className="validate"
+                className="validate input__field"
                 onChange={onChange}
                 style={{
-                  border: "3px solid #283593",
                   paddingLeft: "10px",
                   height: "32px",
                 }}
               />
               <label
-                className="active"
+                className="input__label"
                 style={{
                   fontWeight: "bold",
                   marginLeft: "4vw",
@@ -167,11 +166,11 @@ function Register() {
               >
                 E-mail
               </label>
-              <span
+              {/* <span
                 className="helper-text"
                 data-error="wrong"
                 data-success="right"
-              ></span>
+              ></span> */}
             </div>
 
             <div className="input-field col s12">
@@ -181,16 +180,15 @@ function Register() {
                 type="password"
                 name="password"
                 value={password}
-                className="validate"
+                className="validate input__field"
                 onChange={onChange}
                 style={{
-                  border: "3px solid #283593",
                   paddingLeft: "10px",
                   height: "32px",
                 }}
               />
               <label
-                className="active"
+                className="input__label"
                 style={{
                   fontWeight: "bold",
                   marginLeft: "4vw",
@@ -209,16 +207,15 @@ function Register() {
                 type="password"
                 name="password2"
                 value={password2}
-                className="validate"
+                className="validate input__field"
                 onChange={onChange}
                 style={{
-                  border: "3px solid #283593",
                   paddingLeft: "10px",
                   height: "32px",
                 }}
               />
               <label
-                className="active"
+                className="input__label"
                 style={{
                   fontWeight: "bold",
                   marginLeft: "4vw",

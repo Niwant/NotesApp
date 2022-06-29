@@ -22,7 +22,6 @@ function TagSearch({ tags, selectTags, setSelectTags }) {
     console.log(searchTags);
     setSelectTags(searchTags);
   };
-  console.log(selectTags);
 
   const onReset = () => {
     dispatch(getNotes({}));
