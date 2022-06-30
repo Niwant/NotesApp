@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
@@ -9,6 +9,7 @@ function Header() {
   const [searchTerm, setsearchTerm] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const text = useRef();
 
   const { user } = useSelector((state) => state.auth);
 
@@ -25,7 +26,10 @@ function Header() {
   };
 
   const onClear = (e) => {
-    console.log(e.target.value);
+    if (text.current.value.length) {
+      text.current.value = "";
+      dispatch(getNotes({}));
+    }
   };
 
   return (
@@ -68,6 +72,7 @@ function Header() {
                   }}
                 >
                   <input
+                    ref={text}
                     id="search"
                     type="search"
                     required

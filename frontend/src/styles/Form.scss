@@ -46,7 +46,7 @@ i:hover {
 
     &:focus {
       & + .input__label {
-        transform: translate(0.75rem, -65%) scale(0.8) translateY(0.2);
+        transform: translate(0.75rem, -65%) scale(0.9) translateY(0.2);
         font-size: 14px;
         //border: 3px solid #009688;
         //color: rgb(0, 0, 0) !important;
@@ -57,4 +57,12 @@ i:hover {
       }
     }
   }
+}
+
+.hide_form {
+  display: none !important;
+}
+
+.show_form {
+  display: block !important;
 }

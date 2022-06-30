@@ -75,6 +75,10 @@ function NoteCard({ note }) {
     dispatch(getNotes({ page: currentPage }));
   };
 
+  const getUpdateNotes = _.debounce(() => {
+    dispatch(getNotes({ page: currentPage }));
+  }, 50);
+
   const favTog = () => {
     console.log(favFlag);
     console.log(note.flag);
@@ -88,7 +92,8 @@ function NoteCard({ note }) {
     console.log(noteData);
     //heart.classList.toggle("red-text");
     dispatch(updateNote(noteData));
-    _.debounce(dispatch(getNotes({ page: currentPage })), 1000);
+
+    getUpdateNotes();
   };
 
   return (

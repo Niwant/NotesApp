@@ -11,6 +11,7 @@ const noteSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add Title "],
       unique: true,
+      index: true,
     },
     body: {
       type: String,

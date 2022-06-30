@@ -30,7 +30,8 @@ const getNotes = asyncHandler(async (req, res) => {
     })
       .sort({ flag: -1, _id: -1 })
       .limit(LIMIT)
-      .skip(startIndex);
+      .skip(startIndex)
+      .lean();
   } else {
     total = await Note.countDocuments({
       user: req.user,
@@ -44,7 +45,8 @@ const getNotes = asyncHandler(async (req, res) => {
     })
       .sort({ flag: -1, _id: -1 })
       .limit(LIMIT)
-      .skip(startIndex);
+      .skip(startIndex)
+      .lean();
   }
   res.status(200).json({
     notes,
